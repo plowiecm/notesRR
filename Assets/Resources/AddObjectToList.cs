@@ -19,6 +19,7 @@ public class AddObjectToList : MonoBehaviour
         notes.ForEach(note =>
         {
             var copy = Instantiate(itemTemplate);
+         //   copy.GetComponentInChildren todo set note text and title
             copy.transform.SetParent(content.transform);
         });
 
@@ -28,17 +29,12 @@ public class AddObjectToList : MonoBehaviour
     {
         List<Note> a = new List<Note>();
 
-        IEnumerable<Vuforia.TrackableBehaviour> tbs = Vuforia.TrackerManager.Instance.GetStateManager().GetActiveTrackableBehaviours();
-        var tb = tbs.FirstOrDefault();
+      //  IEnumerable<Vuforia.TrackableBehaviour> tbs = Vuforia.TrackerManager.Instance.GetStateManager().GetActiveTrackableBehaviours();
+      //  var tb = tbs.FirstOrDefault();
 
         //getnotes with tb.name
-        a.Add(new Note());
-        a.Add(new Note());
-        a.Add(new Note());
-        a.Add(new Note());
-        a.Add(new Note()); 
-        a.Add(new Note());
-        a.Add(new Note());
+        a.Add(new Note("a", "b", "c"));
+        a.Add(new Note("a", "b", "c"));
 
         return a;
     }

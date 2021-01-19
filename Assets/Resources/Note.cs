@@ -1,7 +1,14 @@
-﻿using System.Collections.Generic;
-
+﻿
 class Note
 {
-    public string Text { get; set; }
-    public List<string> AssignedUsersIds { get; set; }
+    public Note(string title, string formattedText, string ownerId)
+    {
+        this.title = title;
+        this.formattedText = formattedText;
+        this.ownerId = ownerId;
+    }
+
+    public string title;
+    public string formattedText;
+    public string ownerId;
 }
