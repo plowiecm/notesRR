@@ -15,7 +15,7 @@ namespace Assets.Resources
         {
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri("http://fridgenotesapi-prod.eu-central-1.elasticbeanstalk.com/")
+                BaseAddress = new Uri("http://fridgenotes.azurewebsites.net/")
             };
             httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("text/plain"));
