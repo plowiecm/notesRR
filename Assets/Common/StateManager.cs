@@ -73,7 +73,7 @@ namespace Assets.Common
             CurrentAppState.Username = appStateToInit.Username;
         }
 
-        public void PersistData() // might be worth calling on some event 
+        private void PersistData() 
         {
             try
             {

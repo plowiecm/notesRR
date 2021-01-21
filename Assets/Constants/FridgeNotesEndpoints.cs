@@ -10,5 +10,8 @@ namespace Assets.Constants
     {
         public const string AuthToken = "/auth/token";
         public const string AddNote = "/api/note";
+        public const string RegisterMember = "/api/user";
+        public const string GetFriend = "/api/users/{username}/{pageNumber}";
+        public const string AddFriend = "/api/friend";
     }
 }
