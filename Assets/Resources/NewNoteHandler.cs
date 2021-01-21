@@ -7,22 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Vuforia;
+using StateManager = Assets.Common.StateManager;
 
-public class Notes : MonoBehaviour
+public class NewNoteHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void AddNewNote()
+    public void AddNewNoteBtnClicked()
     {
         TMPro.TMP_InputField inputFieldTitle = GameObject.Find("InputFieldTitle").GetComponent<TMPro.TMP_InputField>();
         string title = inputFieldTitle.text;
@@ -30,16 +25,17 @@ public class Notes : MonoBehaviour
         TMPro.TMP_InputField myInputField = GameObject.Find("InputFieldNote").GetComponent<TMPro.TMP_InputField>();
         string note = myInputField.text;
 
-        IEnumerable<Vuforia.TrackableBehaviour> tbs = Vuforia.TrackerManager.Instance.GetStateManager().GetActiveTrackableBehaviours();
-        var tb = tbs.FirstOrDefault();
         var req = new AddNoteRequest
         {
             Title = title,
             FormattedText = note,
-            ImageTargetId = tb.name
+            ImageTargetId = VuforiaAR.tb.name
         };
 
-        var res = StateManager.HttpServiceClient.PostAsync<Guid>(FridgeNotesEndpoints.AuthToken, req);
+        var res = StateManager.HttpServiceClient.PostAsync<Guid>(FridgeNotesEndpoints.AddNote, req);
         myInputField.text = "";
+        inputFieldTitle.text = "";
+
+        //todo go to allnotes page?
     }
 }
