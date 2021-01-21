@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DashboardScene.unity
     guid: 4adb875e42065ea46955f1e990ba62b8
+  - enabled: 1
+    path: Assets/Scenes/FriendsScene.unity
+    guid: a4cb5e24eae26c04bb7be7f253948e8f
+  - enabled: 1
+    path: Assets/Scenes/GroupsScene.unity
+    guid: 8ec058f04f7bd66438c0ae3c00d84675
   m_configObjects: {}

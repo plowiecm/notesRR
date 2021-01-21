@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Assets.Models.Requests;
@@ -8,22 +6,12 @@ using System;
 using Assets.Common;
 using Assets.Constants;
 using Assets.Handlers.Login;
+using Assets.UI;
 
 namespace Assets.Handlers.Register
 {
-    public class RegisterButtonHandler : MonoBehaviour
+    public class RegisterButtonHandler : MonoBehaviour, IDisplayMessage
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         [SerializeField]
         private GameObject _popupPrefab;
 
@@ -54,26 +42,11 @@ namespace Assets.Handlers.Register
             }
             catch (Exception ex)
             {
-                var instantiatedPopup = Instantiate(PopupPrefab);
-                instantiatedPopup.transform.SetParent(CanvasTarget.transform);
-
-                var popupHandler = instantiatedPopup.GetComponent<PopupHandler>();
-                popupHandler.SetMessage(ex.Message);
-
-                var rect = instantiatedPopup.GetComponent<RectTransform>();
-                rect.SetLeft(0);
-                rect.SetRight(0);
-                rect.SetTop(0);
-                rect.SetBottom(0);
-
+                var uiHandler = new UIHandler(PopupPrefab, CanvasTarget);
+                uiHandler.DisplayPopup(ex.Message);
 
                 Debug.LogError(ex);
             }
-
-
         }
-
-        
     }
-
 }

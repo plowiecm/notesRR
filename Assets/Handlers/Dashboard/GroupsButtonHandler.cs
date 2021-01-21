@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Handlers.Dashboard
 {
-    public class AddFriendButtonHandler : MonoBehaviour
+    public class GroupsButtonHandler : MonoBehaviour
     {
-        public void AddFriendBtnClicked()
+        public void GroupsBtnClicked()
         {
-            SceneManager.LoadScene(PagesConstants.FriendsPage);
+            SceneManager.LoadScene(PagesConstants.GroupsPage);
         }
-    }
-}
 
+    }
+
+}
