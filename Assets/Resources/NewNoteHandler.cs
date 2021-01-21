@@ -19,10 +19,10 @@ public class NewNoteHandler : MonoBehaviour
 
     public void AddNewNoteBtnClicked()
     {
-        TMPro.TMP_InputField inputFieldTitle = GameObject.Find("InputFieldTitle").GetComponent<TMPro.TMP_InputField>();
+        InputField inputFieldTitle = GameObject.Find("InputFieldTitle").GetComponent<InputField>();
         string title = inputFieldTitle.text;
 
-        TMPro.TMP_InputField myInputField = GameObject.Find("InputFieldNote").GetComponent<TMPro.TMP_InputField>();
+        InputField myInputField = GameObject.Find("InputFieldNote").GetComponent<InputField>();
         string note = myInputField.text;
 
         var req = new AddNoteRequest
