@@ -7,21 +7,17 @@ using UnityEngine.UI;
 
 public class PopupHandler : MonoBehaviour
 {
+    public GameObject BaseObj;
+    
     public void SetMessage(string message)
     {
         var textComponenent = GetComponentInChildren<Text>();
         textComponenent.text = message;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (Input.GetMouseButtonDown(0))
+            Destroy(BaseObj);
     }
 }

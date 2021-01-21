@@ -12,7 +12,12 @@ namespace Assets.Constants
         public const string AddNote = "/api/note";
         public const string GetNotesForUser = "/api/notes/user";
         public const string RegisterMember = "/api/user";
-        public const string GetFriend = "/api/users/{username}/{pageNumber}";
+
+        /// <summary>
+        /// /api/users/{userName}/{pageNumber}
+        /// </summary>
+        public const string GetFriend = "/api/users/{0}/{1}";
         public const string AddFriend = "/api/friend";
+        public const string AddGroup = "/api/group";
     }
 }
