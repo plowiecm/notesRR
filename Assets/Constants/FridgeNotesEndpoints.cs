@@ -11,6 +11,12 @@ namespace Assets.Constants
         public const string AuthToken = "/auth/token";
         public const string Note = "/api/note";
 
+
+        /// <summary>
+        /// /api/image/name/{targetName}
+        /// </summary>
+        public const string GetImageTarget = "/api/image/name/{0}";
+
         /// <summary>
         /// /api/notes/{noteId}
         /// </summary>

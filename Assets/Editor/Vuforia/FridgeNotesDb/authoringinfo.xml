@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<VuforiaUnityInfo>
+    <TargetSet toolVersion="" version="6.0"><VuMark name="FridgeNotes" previewImage="6b0c344c7fe340ea8f82f6f35a54315e_preview.png" targetId="6b0c344c7fe340ea8f82f6f35a54315e" version="9.0">
+            <Shape bbox2D="0 0 514 658.448" origin="257.5 328.948" />
+            <Code IDlength="5" IDtype="string" />
+        </VuMark>
+    </TargetSet>
+</VuforiaUnityInfo>

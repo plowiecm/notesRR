@@ -1,11 +1,14 @@
 ﻿using Assets.Common;
 using Assets.Constants;
+using Assets.Models;
 using DanielLochner.Assets.SimpleScrollSnap;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +45,15 @@ public class NotesPanel : MonoBehaviour
         try
         {
             List<Note> notesForUser = await StateManager.HttpServiceClient.GetAsync<List<Note>>(FridgeNotesEndpoints.GetNotesForUser);
-            notes.AddRange(notesForUser.Where(note => note.ImageTargetId.Equals(VuforiaAR.tb?.name)).ToList());
+
+            await Task.Delay(150);
+
+            var uri = string.Format(FridgeNotesEndpoints.GetImageTarget, VuforiaAR.tb.InstanceId);
+            var getImageTarget = await StateManager.HttpServiceClient.GetAsync<ImageDto>(uri);
+
+            var onlyTarget = notesForUser.Where(note => note.ImageTargetId == getImageTarget.TargetId.ToString()).ToList();
+
+            notes.AddRange(onlyTarget);
         }
         catch (Exception ex)
         {

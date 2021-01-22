@@ -7,11 +7,11 @@ namespace Assets.Common
 {
     public class VuforiaAR : MonoBehaviour
     {
-        public static TrackableBehaviour tb { get; private set; }
+        public static VuMarkTarget tb { get; private set; }
 
         void Update()
         {
-            IEnumerable<TrackableBehaviour> tbs = TrackerManager.Instance.GetStateManager().GetActiveTrackableBehaviours();
+            IEnumerable<VuMarkTarget> tbs = TrackerManager.Instance.GetStateManager().GetVuMarkManager().GetActiveVuMarks();
             tb = tbs.FirstOrDefault();
         }
     }
