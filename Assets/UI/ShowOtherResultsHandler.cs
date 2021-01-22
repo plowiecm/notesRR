@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Handlers.AddFriend
+namespace Assets.UI
 {
 
     public enum Direction
     {
-        Previous, 
+        Previous,
         Next
     }
 
