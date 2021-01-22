@@ -14,8 +14,6 @@ using StateManager = Assets.Common.StateManager;
 
 public class NotesPanel : MonoBehaviour
 {
-    public GameObject itemTemplate;
-
     public GameObject panel, toggle;
     public SimpleScrollSnap sss;
 
@@ -66,7 +64,7 @@ public class NotesPanel : MonoBehaviour
 
         foreach (var textObject in textObjects)
         {
-            if(textObject.tag.ToUpper() == "Title".ToUpper())
+            if (textObject.tag.ToUpper() == "Title".ToUpper())
                 textObject.text = note.Title;
             else
                 textObject.text = note.FormattedText;
