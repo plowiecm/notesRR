@@ -69,7 +69,7 @@ public class GroupsHandler : MonoBehaviour
         GroupName.text = Groups[Index].Name;
         ParentPanel.DestroyAllChildren();
 
-        var i = 2;
+        var i = 1;
         foreach (var member in Groups[Index].Members)
         {
             var detail = Instantiate(UserDetailPrefab);
@@ -79,7 +79,7 @@ public class GroupsHandler : MonoBehaviour
             var rect = detail.GetComponent<RectTransform>();
             rect.SetLeft(0);
             rect.SetRight(0);
-            rect.SetTop(50 * i);
+            rect.SetTop(75 * i);
             rect.SetBottom(0);
 
             i++;
