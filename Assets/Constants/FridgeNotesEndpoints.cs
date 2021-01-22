@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Web;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Assets.Constants
         public const string AuthToken = "/auth/token";
         public const string Note = "/api/note";
 
+        public const string DownloadImages = HttpServiceClient.FridgeNotesUri + "/api/imagetargets";
 
         /// <summary>
         /// /api/image/name/{targetName}
