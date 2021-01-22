@@ -38,6 +38,9 @@ namespace Assets.Handlers.Groups
 
         public GameObject Panel;
 
+     
+
+
         public async void CreateGroupBtnClicked()
         {
             var request = new AddGroupRequest

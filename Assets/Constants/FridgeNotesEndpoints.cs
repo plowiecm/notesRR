@@ -28,5 +28,6 @@ namespace Assets.Constants
         /// </summary>
         public const string AddFriend = "/api/friend/{0}";
         public const string AddGroup = "/api/group";
+        public const string GetGroups = "/api/groups/user";
     }
 }
