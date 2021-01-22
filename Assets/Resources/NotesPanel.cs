@@ -17,8 +17,6 @@ using StateManager = Assets.Common.StateManager;
 
 public class NotesPanel : MonoBehaviour
 {
-    public GameObject itemTemplate;
-
     public GameObject panel, toggle;
     public SimpleScrollSnap sss;
 
@@ -77,7 +75,7 @@ public class NotesPanel : MonoBehaviour
 
         foreach (var textObject in textObjects)
         {
-            if(textObject.tag.ToUpper() == "Title".ToUpper())
+            if (textObject.tag.ToUpper() == "Title".ToUpper())
                 textObject.text = note.Title;
             else
                 textObject.text = note.FormattedText;
@@ -103,6 +101,14 @@ public class NotesPanel : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public void Share()
+    {
+        var currentPanel = sss.Panels[sss.CurrentPanel].GetComponent<Panel>();
+        SharePanel.NoteId = Guid.Parse(currentPanel.id);
+
+        this.gameObject.SetActive(false);
+    }
+
     public async void DeleteBtnClicked()
     {
         string noteIdToDelete = sss.Panels[sss.CurrentPanel].GetComponent<Panel>().id;
@@ -111,13 +117,12 @@ public class NotesPanel : MonoBehaviour
         {
             string endpoint = string.Format(FridgeNotesEndpoints.DeleteNote, noteIdToDelete);
             await StateManager.HttpServiceClient.DeleteAsync<HttpResponseMessage>(endpoint);
+            removeNote(sss.CurrentPanel);
         }
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
         }
-
-        removeNote(sss.CurrentPanel);
     }
 
     void OnDisable()
