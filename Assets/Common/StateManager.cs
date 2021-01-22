@@ -63,15 +63,20 @@ namespace Assets.Common
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                var currentPage = CurrentAppState.ScenesStack.Peek();
-                CurrentAppState.ScenesStack.Pop();
-
-                if (CurrentAppState.ScenesStack.Peek() == PagesConstants.LoadingPage || 
-                    (currentPage != PagesConstants.RegisterPage && CurrentAppState.ScenesStack.Peek() == PagesConstants.LoginPage))
-                    Application.Quit();
-                else
-                    SceneManager.LoadScene(CurrentAppState.ScenesStack.Peek());
+                GoBack();
             }
+        }
+
+        public static void GoBack()
+        {
+            var currentPage = CurrentAppState.ScenesStack.Peek();
+            CurrentAppState.ScenesStack.Pop();
+
+            if (CurrentAppState.ScenesStack.Peek() == PagesConstants.LoadingPage ||
+                (currentPage != PagesConstants.RegisterPage && CurrentAppState.ScenesStack.Peek() == PagesConstants.LoginPage))
+                Application.Quit();
+            else
+                SceneManager.LoadScene(CurrentAppState.ScenesStack.Peek());
         }
 
         private void PersistDataOnTokenUpdate(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -14,16 +14,17 @@ using UnityEngine.UI;
 
 public class GroupsHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         GetGroups();
+
+        AddFriendToGroupHandler.MemberAdded += OnMemberAdded;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMemberAdded(object sender, EventArgs e)
     {
-
+        GetGroups();
     }
 
     public Text GroupName;
@@ -68,7 +69,7 @@ public class GroupsHandler : MonoBehaviour
         GroupName.text = Groups[Index].Name;
         ParentPanel.DestroyAllChildren();
 
-        var i = 2;
+        var i = 1;
         foreach (var member in Groups[Index].Members)
         {
             var detail = Instantiate(UserDetailPrefab);
@@ -78,13 +79,20 @@ public class GroupsHandler : MonoBehaviour
             var rect = detail.GetComponent<RectTransform>();
             rect.SetLeft(0);
             rect.SetRight(0);
-            rect.SetTop(50 * 1);
+            rect.SetTop(75 * i);
             rect.SetBottom(0);
 
             i++;
         }
     }
 
+    public void OpenAddFriend()
+    {
+        AddFriendPanel.SetActive(true);
+        AddFriendToGroupHandler.SelectedGroupId = Groups[Index].Id;
+    }
+
+    public GameObject AddFriendPanel;
 
     public async void GetGroups()
     {

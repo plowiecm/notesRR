@@ -21,7 +21,15 @@ namespace Assets.Constants
         /// <summary>
         /// /api/users/{userName}/{pageNumber}
         /// </summary>
-        public const string GetFriend = "/api/users/{0}/{1}";
+        public const string GetUsers = "/api/users/{0}/{1}";
+
+        public const string GetFriends = "/api/friends";
+
+
+        /// <summary>
+        /// /api/group/{groupId}/member/{memberId}
+        /// </summary>
+        public const string AddMemberToGroup = "/api/group/{0}/member/{1}";
 
         /// <summary>
         /// api/friend/{friendId}

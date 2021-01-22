@@ -23,5 +23,6 @@ namespace Assets.Extensions
         {
             rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
         }
+
     }
 }
