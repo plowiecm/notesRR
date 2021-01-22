@@ -15,6 +15,7 @@ using StateManager = Assets.Common.StateManager;
 
 public class SharePanel : MonoBehaviour
 {
+    public static Guid NoteId;
     public GameObject panel, toggle1, toggle2;
     public SimpleScrollSnap usersSss;
 
@@ -91,12 +92,34 @@ public class SharePanel : MonoBehaviour
 
     public async void ShareWithUserBtnClicked()
     {
-        //todo
+        try
+        {
+            string userId = usersSss.Panels[usersSss.CurrentPanel].GetComponent<Panel>().id;
+            string uri = string.Format(FridgeNotesEndpoints.ShareNoteWithUser, NoteId, userId);
+            await StateManager.HttpServiceClient.PutAsync<HttpResponseMessage>(uri);
+
+            removeFromView(usersSss, usersSss.CurrentPanel);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
     }
 
     public async void ShareWithGroupBtnClicked()
     {
-        //todo
+        try
+        {
+            string groupId = usersSss.Panels[groupsSss.CurrentPanel].GetComponent<Panel>().id;
+            string uri = string.Format(FridgeNotesEndpoints.ShareNoteWithGroup, NoteId, groupId);
+            await StateManager.HttpServiceClient.PutAsync<HttpResponseMessage>(uri);
+
+            removeFromView(groupsSss, groupsSss.CurrentPanel);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
     }
 
     void OnDisable()
@@ -106,6 +129,26 @@ public class SharePanel : MonoBehaviour
 
     private void removeAllUsersAndGroupsFromView()
     {
-        //todo
+        removeAllFromView(usersSss);
+        removeAllFromView(groupsSss);
+    }
+
+    private void removeAllFromView(SimpleScrollSnap sss)
+    {
+        int panels = sss.NumberOfPanels - 1;
+        for (int i = panels; i >= 0; i--)
+        {
+            removeFromView(sss, i);
+        }
+    }
+
+    private void removeFromView(SimpleScrollSnap sss, int index)
+    {
+        //Pagination
+        DestroyImmediate(sss.pagination.transform.GetChild(sss.NumberOfPanels - 1).gameObject);
+        sss.pagination.transform.position += new Vector3(toggleWidth / 2f, 0, 0);
+
+        //Panel
+        sss.Remove(index);
     }
 }

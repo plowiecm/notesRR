@@ -90,6 +90,14 @@ public class NotesPanel : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public void Share()
+    {
+        var currentPanel = sss.Panels[sss.CurrentPanel].GetComponent<Panel>();
+        SharePanel.NoteId = Guid.Parse(currentPanel.id);
+
+        this.gameObject.SetActive(false);
+    }
+
     public async void DeleteBtnClicked()
     {
         string noteIdToDelete = sss.Panels[sss.CurrentPanel].GetComponent<Panel>().id;
@@ -98,13 +106,12 @@ public class NotesPanel : MonoBehaviour
         {
             string endpoint = string.Format(FridgeNotesEndpoints.DeleteNote, noteIdToDelete);
             await StateManager.HttpServiceClient.DeleteAsync<HttpResponseMessage>(endpoint);
+            removeNote(sss.CurrentPanel);
         }
         catch (Exception ex)
         {
             Debug.LogError(ex.Message);
         }
-
-        removeNote(sss.CurrentPanel);
     }
 
     void OnDisable()

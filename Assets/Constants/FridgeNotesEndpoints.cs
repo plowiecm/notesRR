@@ -19,6 +19,16 @@ namespace Assets.Constants
         public const string RegisterMember = "/api/user";
 
         /// <summary>
+        /// /api/note/{noteId}/share/user/{userId}
+        /// </summary>
+        public const string ShareNoteWithUser = "/api/note/{0}/share/user/{1}";
+
+        /// <summary>
+        /// /api/note/{noteId}/share/group/{groupId}
+        /// </summary>
+        public const string ShareNoteWithGroup = "/api/note/{0}/share/group/{1}";
+
+        /// <summary>
         /// /api/users/{userName}/{pageNumber}
         /// </summary>
         public const string GetUsers = "/api/users/{0}/{1}";
