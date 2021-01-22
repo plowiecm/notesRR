@@ -32,7 +32,6 @@ public class SharePanel : MonoBehaviour
     void OnEnable()
     {
         LoadUsers();
-
         LoadGroups();
     }
 
@@ -42,16 +41,8 @@ public class SharePanel : MonoBehaviour
 
         try
         {
-            friends.Add(new UserDto()
-            {
-                Username = "MP MP"
-            });
-
-
-            friends.Add(new UserDto()
-            {
-                Username = "MP MP22"
-            });
+            List<UserDto> friendsForUser = await StateManager.HttpServiceClient.GetAsync<List<UserDto>>(FridgeNotesEndpoints.GetFriends);
+            friends.AddRange(friendsForUser);
         }
         catch (Exception ex)
         {
@@ -70,16 +61,8 @@ public class SharePanel : MonoBehaviour
 
         try
         {
-            groups.Add(new GroupDto()
-            {
-                Name = "AAA"
-            });
-
-
-            groups.Add(new GroupDto()
-            {
-                Name = "BBBBBBB"
-            });
+            List<GroupDto> groupsForUser = await StateManager.HttpServiceClient.GetAsync<List<GroupDto>>(FridgeNotesEndpoints.GetGroups);
+            groups.AddRange(groupsForUser);
         }
         catch (Exception ex)
         {
