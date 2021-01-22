@@ -39,7 +39,7 @@ namespace Assets.Web
             return await SendAsync<T>(request);
         }
 
-        public async Task<T> PostAsync<T>(string endpoint, object content)
+        public async Task<T> PostAsync<T>(string endpoint, object content = null)
         {
             var payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, ApplicationJsonContentType);
 
@@ -53,7 +53,21 @@ namespace Assets.Web
             return await SendAsync<T>(request);
         }
 
-        public async Task<T> PutAsync<T>(string endpoint, object content)
+        public async Task PostAsync(string endpoint, object content = null)
+        {
+            var payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, ApplicationJsonContentType);
+
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri($"{FridgeNotesUri}/{endpoint}"),
+                Method = HttpMethod.Post,
+                Content = payload
+            };
+
+            await SendAsync(request);
+        }
+
+        public async Task<T> PutAsync<T>(string endpoint, object content = null)
         {
             var payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, ApplicationJsonContentType);
 
@@ -67,7 +81,7 @@ namespace Assets.Web
             return await SendAsync<T>(request);
         }
 
-        public async Task PutAsync(string endpoint, object content)
+        public async Task PutAsync(string endpoint, object content = null)
         {
             var payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, ApplicationJsonContentType);
 

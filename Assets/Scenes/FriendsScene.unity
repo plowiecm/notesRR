@@ -973,9 +973,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 926762858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b32c310d9b246654281f274793ea8776, type: 3}
+  m_Script: {fileID: 11500000, guid: 954fa6faff336dc43aa4e11e50488a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _popupPrefab: {fileID: 3834020742866084428, guid: 513321b1f433c804183c357d65693fb2,
+    type: 3}
+  _canvasTarget: {fileID: 554004457}
+  DetailsView: {fileID: 1250633117}
 --- !u!114 &926762861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,7 +1024,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 926762860}
-        m_MethodName: NotesBtnClicked
+        m_MethodName: AddFriend
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1080,7 +1084,7 @@ GameObject:
   - component: {fileID: 1250633119}
   - component: {fileID: 1250633121}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: DetailsView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

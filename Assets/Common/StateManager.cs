@@ -45,7 +45,7 @@ namespace Assets.Common
             try
             {
                 LoadAppState();
-                SceneManager.LoadScene(PagesConstants.ARPage);
+                SceneManager.LoadScene(PagesConstants.DashboardPage);
             }
             catch (Exception ex)
             {

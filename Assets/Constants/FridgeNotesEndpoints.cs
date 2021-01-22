@@ -22,7 +22,11 @@ namespace Assets.Constants
         /// /api/users/{userName}/{pageNumber}
         /// </summary>
         public const string GetFriend = "/api/users/{0}/{1}";
-        public const string AddFriend = "/api/friend";
+
+        /// <summary>
+        /// api/friend/{friendId}
+        /// </summary>
+        public const string AddFriend = "/api/friend/{0}";
         public const string AddGroup = "/api/group";
     }
 }
