@@ -67,6 +67,20 @@ namespace Assets.Web
             return await SendAsync<T>(request);
         }
 
+        public async Task PutAsync(string endpoint, object content)
+        {
+            var payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, ApplicationJsonContentType);
+
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri($"{FridgeNotesUri}/{endpoint}"),
+                Method = HttpMethod.Put,
+                Content = payload
+            };
+
+            await SendAsync(request);
+        }
+
         private async Task<T> SendAsync<T>(HttpRequestMessage request)
         {
             using (var httpClient = new HttpClient())
@@ -83,7 +97,21 @@ namespace Assets.Web
                     return JsonConvert.DeserializeObject<T>(responseBody);
                 }
             }
+        }
 
+        private async Task SendAsync(HttpRequestMessage request)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization =
+                     new AuthenticationHeaderValue("Bearer", StateManager.CurrentAppState?.Token);
+
+                using (var response = await httpClient.SendAsync(request))
+                {
+                    if (!response.IsSuccessStatusCode)
+                        throw new HttpResponseException(response.StatusCode, await response.Content.ReadAsStringAsync());
+                }
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class PopupHandler : MonoBehaviour
     
     public void SetMessage(string message)
     {
-        var textComponenent = GetComponentInChildren<Text>();
+        var textComponenent = GetComponentInChildren<TextMeshProUGUI>();
         textComponenent.text = message;
     }
 

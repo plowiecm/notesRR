@@ -1,13 +1,15 @@
-﻿namespace Assets.Constants
+﻿using System.Collections.Generic;
+
+namespace Assets.Constants
 {
     public class PagesConstants
     {
-        public const int LoadingPage = 0;
-        public const int LoginPage = 1;
-        public const int RegisterPage = 2;
-        public const int ARPage = 3;
-        public const int DashboardPage = 4;
-        public const int FriendsPage = 5;
-        public const int GroupsPage = 6;
+        public const string LoadingPage = "LoadingScene";
+        public const string LoginPage = "MenuPanel";
+        public const string RegisterPage = "RegisterScene";
+        public const string ARPage = "NoteScene";
+        public const string DashboardPage = "DashboardScene";
+        public const string FriendsPage = "FriendsScene";
+        public const string GroupsPage = "GroupsScene";
     }
 }

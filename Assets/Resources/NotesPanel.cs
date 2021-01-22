@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
@@ -17,6 +18,8 @@ public class NotesPanel : MonoBehaviour
 
     public GameObject panel, toggle;
     public SimpleScrollSnap sss;
+
+    public GameObject CanvasEditNote;
 
 
     private float toggleWidth;
@@ -39,7 +42,7 @@ public class NotesPanel : MonoBehaviour
         try
         {
             List<Note> notesForUser = await StateManager.HttpServiceClient.GetAsync<List<Note>>(FridgeNotesEndpoints.GetNotesForUser);
-            notes.AddRange(notesForUser.Where(note => note.ImageTargetId.Equals(VuforiaAR.tb.name)).ToList());
+            notes.AddRange(notesForUser.Where(note => note.ImageTargetId.Equals(VuforiaAR.tb?.name)).ToList());
         }
         catch (Exception ex)
         {
@@ -48,20 +51,45 @@ public class NotesPanel : MonoBehaviour
 
         notes.ForEach(note =>
         {
-            Add(note.Id, note.FormattedText);
+            Add(note);
         });
     }
 
-    private void Add(string id, string formattedText)
+    private void Add(Note note)
     {
         //Pagination
         Instantiate(toggle, sss.pagination.transform.position + new Vector3(toggleWidth * (sss.NumberOfPanels + 1), 0, 0), Quaternion.identity, sss.pagination.transform);
         sss.pagination.transform.position -= new Vector3(toggleWidth / 2f, 0, 0);
 
         //Panel
-        panel.GetComponentInChildren<Text>().text = formattedText;
-        panel.GetComponent<Panel>().id = id;
+        var textObjects = panel.GetComponentsInChildren<TextMeshProUGUI>();
+
+        foreach (var textObject in textObjects)
+        {
+            if(textObject.tag.ToUpper() == "Title".ToUpper())
+                textObject.text = note.Title;
+            else
+                textObject.text = note.FormattedText;
+        }
+
+        panel.GetComponent<Panel>().id = note.Id;
         sss.Add(panel, 0);
+    }
+
+    public void Edit()
+    {
+        var currentPanel = sss.Panels[sss.CurrentPanel].GetComponent<Panel>();
+        var fields = currentPanel.GetComponentsInChildren<TextMeshProUGUI>();
+        var title = fields.FirstOrDefault(x => x.tag.ToUpper() == "Title".ToUpper())?.text;
+        var content = fields.FirstOrDefault(x => x.tag.ToUpper() == "Content".ToUpper())?.text;
+
+        EditNoteHandler.NoteId = Guid.Parse(currentPanel.id);
+        EditNoteHandler.CurrentTitle = title;
+        EditNoteHandler.CurrentContent = content;
+
+        CanvasEditNote.SetActive(true);
+
+        this.gameObject.SetActive(false);
     }
 
     public async void DeleteBtnClicked()

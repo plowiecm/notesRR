@@ -22,8 +22,11 @@ public class UserDisplayHandlerBase
         {
             if (_index != value)
             {
-                _index = value;
-                RenderData();
+                if(value < Users.Count && value >= 0)
+                {
+                    _index = value;
+                    RenderData();
+                }
             }
         }
     }

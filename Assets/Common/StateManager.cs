@@ -40,18 +40,41 @@ namespace Assets.Common
 
             CurrentAppState.PropertyChanged += PersistDataOnTokenUpdate;
 
+            SceneManager.sceneLoaded += SceneLoaded;
+
             try
             {
                 LoadAppState();
                 SceneManager.LoadScene(PagesConstants.ARPage);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.Log(ex.Message);
                 SceneManager.LoadScene(PagesConstants.LoginPage);
             }
         }
 
-        private void PersistDataOnTokenUpdate(object sender, System.ComponentModel.PropertyChangedEventArgs e) 
+        private void SceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            CurrentAppState.ScenesStack.Push(scene.name);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                var currentPage = CurrentAppState.ScenesStack.Peek();
+                CurrentAppState.ScenesStack.Pop();
+
+                if (CurrentAppState.ScenesStack.Peek() == PagesConstants.LoadingPage || 
+                    (currentPage != PagesConstants.RegisterPage && CurrentAppState.ScenesStack.Peek() == PagesConstants.LoginPage))
+                    Application.Quit();
+                else
+                    SceneManager.LoadScene(CurrentAppState.ScenesStack.Peek());
+            }
+        }
+
+        private void PersistDataOnTokenUpdate(object sender, System.ComponentModel.PropertyChangedEventArgs e)
             => PersistData();
 
         private void LoadAppState()
@@ -60,20 +83,20 @@ namespace Assets.Common
 
             var deserialized = JsonConvert.DeserializeObject<AppState>(serialized);
 
-            if (deserialized.TokenExpiration < DateTime.Now)    //renew token here
-                return;
+            if (deserialized.TokenExpiration < DateTime.Now)
+                throw new Exception("Token expired");
 
             InitState(deserialized);
         }
 
         public static void InitState(AppState appStateToInit)
         {
-            CurrentAppState.Token = appStateToInit.Token;
             CurrentAppState.TokenExpiration = appStateToInit.TokenExpiration;
             CurrentAppState.Username = appStateToInit.Username;
+            CurrentAppState.Token = appStateToInit.Token;
         }
 
-        private void PersistData() 
+        private void PersistData()
         {
             try
             {

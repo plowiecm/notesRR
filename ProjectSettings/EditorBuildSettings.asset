@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/RegisterScene.unity
     guid: 117d57b7b26fed6459b1012b0aed68f3
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/NoteScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/DashboardScene.unity

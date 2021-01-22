@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -32,6 +34,7 @@ namespace Assets.Common
         }
         public DateTime? TokenExpiration { get; set; }
 
+        public Stack<string> ScenesStack { get; set; } = new Stack<string>();
 
         /// <summary>
         /// this should only upon TOKEN prop change 

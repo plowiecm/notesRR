@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
@@ -12,18 +13,13 @@ using StateManager = Assets.Common.StateManager;
 
 public class NewNoteHandler : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
     public void AddNewNoteBtnClicked()
     {
-        InputField inputFieldTitle = GameObject.Find("InputFieldTitle").GetComponent<InputField>();
-        string title = inputFieldTitle.text;
+        var inputFieldTitle = GameObject.Find("InputFieldTitle").GetComponent<InputField>();
+        var title = inputFieldTitle.text;
 
-        InputField myInputField = GameObject.Find("InputFieldNote").GetComponent<InputField>();
-        string note = myInputField.text;
+        var myInputField = GameObject.Find("InputFieldNote").GetComponent<TMP_InputField>();
+        var note = myInputField.text;
 
         var req = new AddNoteRequest
         {
@@ -32,7 +28,7 @@ public class NewNoteHandler : MonoBehaviour
             ImageTargetId = VuforiaAR.tb.name
         };
 
-        var res = StateManager.HttpServiceClient.PostAsync<Guid>(FridgeNotesEndpoints.AddNote, req);
+        var res = StateManager.HttpServiceClient.PostAsync<Guid>(FridgeNotesEndpoints.Note, req);
         myInputField.text = "";
         inputFieldTitle.text = "";
 
