@@ -110,7 +110,7 @@ public class SharePanel : MonoBehaviour
     {
         try
         {
-            string groupId = usersSss.Panels[groupsSss.CurrentPanel].GetComponent<Panel>().id;
+            string groupId = groupsSss.Panels[groupsSss.CurrentPanel].GetComponent<Panel>().id;
             string uri = string.Format(FridgeNotesEndpoints.ShareNoteWithGroup, NoteId, groupId);
             await StateManager.HttpServiceClient.PutAsync<HttpResponseMessage>(uri);
 
