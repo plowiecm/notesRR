@@ -10,6 +10,7 @@ namespace Assets.Constants
     {
         public const string AuthToken = "/auth/token";
         public const string AddNote = "/api/note";
+        public const string DeleteNote = "api/notes{0}";
         public const string GetNotesForUser = "/api/notes/user";
         public const string RegisterMember = "/api/user";
 

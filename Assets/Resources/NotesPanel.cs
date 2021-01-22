@@ -1,9 +1,11 @@
 ﻿using Assets.Common;
 using Assets.Constants;
+using DanielLochner.Assets.SimpleScrollSnap;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
@@ -12,7 +14,18 @@ using StateManager = Assets.Common.StateManager;
 public class NotesPanel : MonoBehaviour
 {
     public GameObject itemTemplate;
-    public GameObject content;
+
+    public GameObject panel, toggle;
+    public SimpleScrollSnap sss;
+
+
+    private float toggleWidth;
+
+    private void Awake()
+    {
+        toggleWidth = toggle.GetComponent<RectTransform>().sizeDelta.x * (Screen.width / 2048f); ;
+    }
+
 
     void OnEnable()
     {
@@ -35,10 +48,37 @@ public class NotesPanel : MonoBehaviour
 
         notes.ForEach(note =>
         {
-            var copy = Instantiate(itemTemplate);
-            //   copy.GetComponentInChildren todo set note text and title
-            copy.transform.SetParent(content.transform);
+            Add(note.Id, note.FormattedText);
         });
+    }
+
+    private void Add(string id, string formattedText)
+    {
+        //Pagination
+        Instantiate(toggle, sss.pagination.transform.position + new Vector3(toggleWidth * (sss.NumberOfPanels + 1), 0, 0), Quaternion.identity, sss.pagination.transform);
+        sss.pagination.transform.position -= new Vector3(toggleWidth / 2f, 0, 0);
+
+        //Panel
+        panel.GetComponentInChildren<Text>().text = formattedText;
+        panel.GetComponent<Panel>().id = id;
+        sss.Add(panel, 0);
+    }
+
+    public async void DeleteBtnClicked()
+    {
+        string noteIdToDelete = sss.Panels[sss.CurrentPanel].GetComponent<Panel>().id;
+
+        try
+        {
+            string endpoint = string.Format(FridgeNotesEndpoints.DeleteNote, noteIdToDelete);
+            await StateManager.HttpServiceClient.DeleteAsync<HttpResponseMessage>(endpoint);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex.Message);
+        }
+
+        removeNote(sss.CurrentPanel);
     }
 
     void OnDisable()
@@ -48,10 +88,20 @@ public class NotesPanel : MonoBehaviour
 
     private void removeAllNotes()
     {
-        int childs = content.transform.childCount;
-        for (int i = childs - 1; i >= 0; i--)
+        int panels = sss.NumberOfPanels - 1;
+        for (int i = panels; i >= 0; i--)
         {
-            GameObject.Destroy(content.transform.GetChild(i).gameObject);
+            removeNote(i);
         }
+    }
+
+    private void removeNote(int i)
+    {
+        //Pagination
+        DestroyImmediate(sss.pagination.transform.GetChild(sss.NumberOfPanels - 1).gameObject);
+        sss.pagination.transform.position += new Vector3(toggleWidth / 2f, 0, 0);
+
+        //Panel
+        sss.Remove(i);
     }
 }
